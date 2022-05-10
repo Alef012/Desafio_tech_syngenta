@@ -1,4 +1,21 @@
-import re
+from datetime import date
+
+def transforma_mes(mes):
+    ano=["Jan",
+    "Fev",
+    "Mar",
+    "Abr",
+    "Mai",
+    "Jun",
+    "Jul",
+    "Set",
+    "Out",
+    "Nov"
+    "Dez"
+    ]
+    for i in range(11):
+        if ano[i]==mes:
+            return i+1
 class Hotel:
     def __init__(self,nome,classificacao,taxa_semana,taxa_semana_fidelidade,taxa_fds,taxa_fds_fidelidade):
         self.nome =nome
@@ -13,13 +30,17 @@ class Hotel:
         preco=0
         if tipo_cliente == "Regular":
             for i in datas:
-                if i[9:]=="(sat)" or i[9:]=="(sun)":
+                mes=transforma_mes(i[2:5])
+                dia_da_semana=date(int(i[5:9]),mes,int(i[0:2])).weekday()
+                if dia_da_semana==5 or dia_da_semana== 6:
                     preco =preco+ self.t_fds
                 else:
                     preco =preco+ self.t_semana
-        elif tipo_cliente == "Reward":
+        elif tipo_cliente == "Rewards":
             for i in datas:
-                if i[9:]=="(sat)" or i[9:]=="(sun)":
+                mes=transforma_mes(i[2:5])
+                dia_da_semana=date(int(i[5:9]),mes,int(i[0:2])).weekday()
+                if dia_da_semana==5 or dia_da_semana==6:
                     preco = preco+self.t_fds_fidelidade
                 else:
                     preco =preco+ self.t_semana_fidelidade
@@ -39,6 +60,7 @@ def get_cheapest_hotel(entrada):   #DO NOT change the function's name
     menor=hotel1
     for i in hoteis:
         i.preco=i.calcula_preco(datas,tipo_cliente)
+        print(i.preco)
         if i.preco< menor.preco:
             menor=i
         elif i.preco == menor.preco:
@@ -47,4 +69,6 @@ def get_cheapest_hotel(entrada):   #DO NOT change the function's name
     
     return menor.nome
 
-get_cheapest_hotel(input())
+print(get_cheapest_hotel("Regular: 16Mar2009(mon), 17Mar2009(tues), 18Mar2009(wed)"))
+print(get_cheapest_hotel("Regular: 20Mar2009(fri), 21Mar2009(sat), 22Mar2009(sun)"))
+print(get_cheapest_hotel("Rewards: 26Mar2009(thur), 27Mar2009(fri), 28Mar2009(sat)"))

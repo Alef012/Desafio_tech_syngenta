@@ -2,6 +2,7 @@ from unittest import TestCase
 from context import src
 from src.my_module import get_cheapest_hotel
 
+
 class MyTest(TestCase):
     def test1(self):
         result = "Lakewood"
