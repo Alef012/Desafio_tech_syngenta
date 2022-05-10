@@ -67,5 +67,3 @@ def get_cheapest_hotel(entrada):   #DO NOT change the function's name
                 menor =i
     
     return menor.nome
-
-print(get_cheapest_hotel(input("Digite a entrada no formato: <tipo_do_cliente>: <data1>, <data2>, <data3>: ")))
