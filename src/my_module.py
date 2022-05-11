@@ -1,6 +1,7 @@
 from datetime import date
 
 def transforma_mes(mes):
+    #Função para retornar o numero do mes em inteiro para formatação da data
     ano=["Jan",
     "Fev",
     "Mar",
@@ -16,7 +17,7 @@ def transforma_mes(mes):
     for i in range(11):
         if ano[i]==mes:
             return i+1
-class Hotel:
+class Hotel: #Criação de um objeto hotel, para facilitar a criação de mais hotéis se preciso
     def __init__(self,nome,classificacao,taxa_semana,taxa_semana_fidelidade,taxa_fds,taxa_fds_fidelidade):
         self.nome =nome
         self.classificacao= classificacao
@@ -26,7 +27,7 @@ class Hotel:
         self.t_fds_fidelidade=taxa_fds_fidelidade
         self.preco =0
     
-    def calcula_preco(self,datas,tipo_cliente):
+    def calcula_preco(self,datas,tipo_cliente): #Metodo que calcula o preço da hospadagem com as datas disponibilizadas
         preco=0
         if tipo_cliente == "Regular":
             for i in datas:
@@ -49,13 +50,13 @@ class Hotel:
 
 
 hotel1=Hotel("Lakewood",3,110,80,90,80)
-hotel2=Hotel("Bridgewood",4,160,110,60,50)
+hotel2=Hotel("Bridgewood",4,160,110,60,50)  #criação dos objetos 
 hotel3=Hotel("Ridgewood",5,220,100,150,40)
-hoteis=[hotel1,hotel2,hotel3]
+hoteis=[hotel1,hotel2,hotel3] #lista dos 3 hoteis pra ser percorrida no for
 
 def get_cheapest_hotel(entrada):   #DO NOT change the function's name
     entrada=entrada.split(': ')
-    tipo_cliente=entrada[0]
+    tipo_cliente=entrada[0]    #separação da string entrada
     datas=entrada[1].split(', ')
     menor=hotel1
     for i in hoteis:
@@ -67,3 +68,8 @@ def get_cheapest_hotel(entrada):   #DO NOT change the function's name
                 menor =i
     
     return menor.nome
+
+print(get_cheapest_hotel("Rewards: 10Mai2022, 11Mai2022, 12Mai2022, 13Mai2022, 14Mai2022, 15Mai2022"))
+#resposta certa deve ser Ridgewood
+print(get_cheapest_hotel("Regular: 10Mai2022, 11Mai2022, 12Mai2022, 13Mai2022, 14Mai2022, 15Mai2022"))
+#resposta certa deve ser Lakewood
